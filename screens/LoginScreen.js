@@ -62,6 +62,7 @@ const LoginScreen = (props) => {
             />
             <TextInput
               value={idNumber}
+              keyboardType="numeric"
               onChangeText={(text) => setidNumber(text)}
               style={styles.formInput}
               placeholder="Enter your ID number"
@@ -94,7 +95,7 @@ const LoginScreen = (props) => {
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         <Pressable
-          onPress={() => navigation.navigate("Register")}
+          onPress={() => navigation.navigate("RegisterChoice")}
           style={{ marginTop: 10 }}
         >
           <Text style={styles.signupText}>

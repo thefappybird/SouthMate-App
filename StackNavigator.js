@@ -7,6 +7,9 @@ import DrawerScreen from "./screens/DrawerScreen";
 import ScanScreen from './screens/ScanScreen';
 import BankScreen from "./screens/BankScreen";
 import CashInScreen from './screens/CashInScreen';
+import CashOutScreen from './screens/CashOutScreen';
+import SendScreen from './screens/SendScreen';
+import RegisterChoiceScreen from './screens/RegisterChoiceScreen'
 const StackNavigator = () => {
     const Stack = createNativeStackNavigator()
     return (
@@ -24,10 +27,13 @@ const StackNavigator = () => {
                   }}
             >
                 <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}} />
+                <Stack.Screen name="RegisterChoice" component={RegisterChoiceScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="Drawer" component={DrawerScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="BankScreen" component={BankScreen} options={{headerShown: true, headerTitle:"Register Bank"}}/>
                 <Stack.Screen name="CashInScreen" component={CashInScreen} options={{headerShown: true, headerTitle:"Cash In"}}/>
+                <Stack.Screen name="CashOutScreen" component={CashOutScreen} options={{headerShown: true, headerTitle:"Cash Out"}}/>
+                <Stack.Screen name="SendScreen" component={SendScreen} options={{headerShown: true, headerTitle:"Send Money"}}/>
                 <Stack.Screen name="Scan" component={ScanScreen} options={{headerShown: true,  headerStyle: {
                     backgroundColor: "#F7EE21", // Customize header background color
                     },

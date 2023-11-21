@@ -5,12 +5,12 @@ import { useNavigation } from "@react-navigation/native";
 import QrCodeModal from "./QRCodeModal";
 const StickyFooter = ({ userData }) => {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [email, setemail] = useState('');
+  const [email, setEmail] = useState('');
   const handleGenerateQRCode = () => {
     // Fetch API data and set email here
     const fetchedEmail = userData.email
     // For example, use fetch or axios to get data from the server
-    setemail(fetchedEmail);
+    setEmail(fetchedEmail);
     // Show the modal
     setModalVisible(true);
   };
@@ -20,7 +20,7 @@ const StickyFooter = ({ userData }) => {
   const navigation = useNavigation();
 
   const handleScan = () => {
-    navigation.navigate("Scan");
+    navigation.navigate("Scan", { userData });
   };
   return (
     <View>

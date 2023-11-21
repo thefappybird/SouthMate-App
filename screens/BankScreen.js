@@ -16,8 +16,10 @@ import {
   widthPercentageToDP,
   heightPercentageToDP,
 } from "react-native-responsive-screen";
+
 import { SelectCountry } from "react-native-element-dropdown";
 import axios from "axios";
+import OTPModal from '../components/OTPModal'
 import { useNavigation } from "@react-navigation/native";
 const url = [
   "../assets/App-Assets/BDO-img.png",
@@ -26,6 +28,7 @@ const url = [
   "../assets/App-Assets/Gcash-img.png",
   "../assets/App-Assets/UnionBank-img.png",
 ];
+const urlTest = url[0];
 const local_data = [
   {
     value: "0",
@@ -53,20 +56,45 @@ const local_data = [
     image: require("../assets/App-Assets/UnionBank-img.png"),
   },
 ];
-
 const BankScreen = ({ route }) => {
   const navigation = useNavigation();
   const { userData } = route.params;
   const [accountNumber, setAccountNumber] = useState();
   const [count, setCount] = useState("");
-  const handleSubmit = () => {
-    const bank = {
-      owner: userData._id,
-      accountNumber: Number(accountNumber),
-      bankName: local_data[count].label,
-      image: url[count],
-    };
-    axios
+  const [otp, setOtp] = useState("")
+  const [bank, setBank] = useState({
+    owner: "",
+    accountNumber: 0,
+    bankName: "",
+    image: "",
+  });
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    if(!isModalVisible){
+      setBank({
+        owner: userData._id,
+        accountNumber: Number(accountNumber),
+        bankName: local_data[count].label,
+        image: url[count],
+      })
+      axios.post("http://10.0.2.2:3000/sendOtp", {email: userData.email}).then(response => {
+        setOtp(response.data.otp);
+        console.log(otp);
+        setModalVisible(!isModalVisible);
+      }).catch(error => {
+        console.error('Error sending OTP email from React Native:', error);
+      })
+    }else{
+      setModalVisible(!isModalVisible);
+    }
+  };
+
+  const handleSubmit = (inputOtp) => {
+    if(inputOtp != otp) {
+      Alert.alert("Wrong OTP", "Please enter the correct OTP")
+    }else{
+      axios
       .post("http://10.0.2.2:3000/registerBank", bank)
       .then((response) => {
         setAccountNumber("");
@@ -77,6 +105,7 @@ const BankScreen = ({ route }) => {
         Alert.alert("Bank Registration Failed", "An error occured during registration")
         console.log("error", error);
       });
+    }
   };
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -117,9 +146,14 @@ const BankScreen = ({ route }) => {
             />
             <TouchableOpacity
               style={styles.registerButton}
-              onPress={handleSubmit}
+              onPress={toggleModal}
             >
               <Text style={styles.buttonText}>Submit</Text>
+              <OTPModal
+                isVisible={isModalVisible}
+                onClose={toggleModal}
+                onSubmit={handleSubmit}
+              />
             </TouchableOpacity>
           </View>
         </View>

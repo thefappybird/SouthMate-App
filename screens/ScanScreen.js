@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-
-export default function App() {
+import { useNavigation } from "@react-navigation/native";
+export default function ScanScreen({ route }) {
+  const userData = route.params;
+  const navigation = useNavigation();
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
@@ -13,9 +15,10 @@ export default function App() {
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
-    alert(`QR code with data ${data} has been scanned!`);
+    console.log(data);
+    navigation.replace("SendScreen", { userData, data })
   };
 
   if (hasPermission === null) {

@@ -10,7 +10,7 @@ import {
   Alert,
   TouchableOpacity,
 } from "react-native";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   Feather,
   AntDesign,
@@ -19,19 +19,24 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
-import { widthPercentageToDP, heightPercentageToDP } from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP,
+  heightPercentageToDP,
+} from "react-native-responsive-screen";
 import React, { useState } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import SelectDropdown from "react-native-select-dropdown";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
-const RegisterScreen = () => {
+const RegisterScreen = (type) => {
+  const userType = type.route.params;
   const [step, setStep] = useState(1);
   const [selected, setSelected] = useState(false);
   const [datePickerVisible, setDatePickerVisible] = useState(false);
   const genderArray = ["Male", "Female", "Other", "I'd rather not say."];
   const [email, setEmail] = useState("");
+  const [guardianEmail, setGuardianEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [midName, setMidName] = useState("");
@@ -65,6 +70,7 @@ const RegisterScreen = () => {
       email: email,
       password: password,
       mNumber: mNumber,
+      guardianEmail: guardianEmail,
       birthDate: birthDate,
       citizenship: citizenship,
       placeOfBirth: placeOfBirth,
@@ -73,10 +79,11 @@ const RegisterScreen = () => {
       cityMuni: cityMuni,
       zipCode: zipCode,
       idNumber: idNumber,
+      type: userType,
     };
 
     axios
-      .post("http://10.0.2.2:3000/register", user)
+      .post("http://192.168.254.120:3000/register", user)
       .then((response) => {
         Alert.alert(
           "Registration successful",
@@ -95,7 +102,7 @@ const RegisterScreen = () => {
         setCityMuni("");
         setZipCode("");
         setIdNumber("");
-        navigation.goBack();
+        navigation.navigate("Login");
       })
       .catch((error) => {
         Alert.alert(
@@ -125,6 +132,11 @@ const RegisterScreen = () => {
       case 1: //1st Page
         return (
           <View>
+            <View style={{ alignItems: "center" }}>
+              <Text style={[styles.formText, { justifyContent: "center" }]}>
+                Register Your Account
+              </Text>
+            </View>
             <View style={{ marginTop: 10 }}>
               <View style={styles.formInputView}>
                 <AntDesign
@@ -190,7 +202,7 @@ const RegisterScreen = () => {
                 return item;
               }}
             />
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", marginTop: 40 }}>
               <TouchableOpacity
                 style={styles.registerButton}
                 onPress={handleNext}
@@ -278,7 +290,7 @@ const RegisterScreen = () => {
                 />
               </View>
             </View>
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", marginTop: 40 }}>
               <TouchableOpacity
                 style={styles.registerButton}
                 onPress={handlePrevious}
@@ -318,23 +330,6 @@ const RegisterScreen = () => {
               <View style={styles.formInputView}>
                 <MaterialCommunityIcons
                   style={styles.icons}
-                  name="town-hall"
-                  size={24}
-                  color="gray"
-                />
-                <TextInput
-                  autoCapitalize="words"
-                  value={province}
-                  onChangeText={(text) => setProvince(text)}
-                  style={styles.formInput}
-                  placeholder="Enter your province"
-                />
-              </View>
-            </View>
-            <View style={{ marginTop: 10 }}>
-              <View style={styles.formInputView}>
-                <MaterialCommunityIcons
-                  style={styles.icons}
                   name="home-city"
                   size={24}
                   color="gray"
@@ -345,6 +340,23 @@ const RegisterScreen = () => {
                   onChangeText={(text) => setCityMuni(text)}
                   style={styles.formInput}
                   placeholder="Enter your city/municipality"
+                />
+              </View>
+            </View>
+            <View style={{ marginTop: 10 }}>
+              <View style={styles.formInputView}>
+                <MaterialCommunityIcons
+                  style={styles.icons}
+                  name="town-hall"
+                  size={24}
+                  color="gray"
+                />
+                <TextInput
+                  autoCapitalize="words"
+                  value={province}
+                  onChangeText={(text) => setProvince(text)}
+                  style={styles.formInput}
+                  placeholder="Enter your province"
                 />
               </View>
             </View>
@@ -365,7 +377,7 @@ const RegisterScreen = () => {
                 />
               </View>
             </View>
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", marginTop: 40 }}>
               <TouchableOpacity
                 style={styles.registerButton}
                 onPress={handlePrevious}
@@ -401,6 +413,25 @@ const RegisterScreen = () => {
                   />
                 </View>
               </View>
+
+              {userType === "Student" && (
+                <View style={{ marginTop: 10 }}>
+                  <View style={styles.formInputView}>
+                    <MaterialIcons
+                      style={{ marginLeft: 10 }}
+                      name="email"
+                      size={24}
+                      color="gray"
+                    />
+                    <TextInput
+                      value={guardianEmail}
+                      onChangeText={(text) => setGuardianEmail(text)}
+                      style={styles.formInput}
+                      placeholder="Enter guardian's email"
+                    />
+                  </View>
+                </View>
+              )}
               <View style={{ marginTop: 10 }}>
                 <View style={styles.formInputView}>
                   <AntDesign
@@ -453,7 +484,7 @@ const RegisterScreen = () => {
                 </View>
               </View>
             </View>
-            <View style={{flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", marginTop: 20 }}>
               <TouchableOpacity
                 style={styles.registerButton}
                 onPress={handlePrevious}
@@ -480,13 +511,15 @@ const RegisterScreen = () => {
       <ScrollView style={styles.mainView}>
         <View style={{ marginTop: 50, alignItems: "center" }}>
           <Image
-            style={(style = styles.imageStyle)}
+            style={styles.imageStyle}
             source={require("../assets/App-Assets/SouthMate--Logo.png")}
           />
-          <Text style={styles.formText}>Register Your Account</Text>
         </View>
         {renderStepContent()}
-        <Pressable onPress={() => navigation.goBack()} style={{ marginTop: 5 }}>
+        <Pressable
+          onPress={() => navigation.navigate("Login")}
+          style={{ marginTop: 5 }}
+        >
           <Text style={styles.signupText}>
             Already have an account?{" "}
             <Text style={styles.link}>Go back to login</Text>
@@ -501,9 +534,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  mainView:{
-    marginVertical: heightPercentageToDP('2.5%'), 
-    marginHorizontal: widthPercentageToDP('10%'),
+  mainView: {
+    marginVertical: heightPercentageToDP("2.5%"),
+    marginHorizontal: widthPercentageToDP("10%"),
   },
   mainContainer: {
     flex: 1,
@@ -589,7 +622,6 @@ const styles = StyleSheet.create({
     width: 150,
     backgroundColor: "#27235E",
     padding: 15,
-    marginTop: 40,
     marginLeft: "auto",
     marginRight: "auto",
     borderRadius: 6,

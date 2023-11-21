@@ -46,6 +46,9 @@ const userSchema = mongoose.Schema(
             type: String,
             required: true
         },
+        guardianEmail: {
+            type: String
+        },
         password: {
             type: String,
             required: true
@@ -61,6 +64,9 @@ const userSchema = mongoose.Schema(
         verified: {
             type: Boolean,
             default: false
+        },
+        type: {
+            type: String
         },
         verificationToken: String,
     },

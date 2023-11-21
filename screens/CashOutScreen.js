@@ -9,11 +9,11 @@ import {
   FlatList,
   Alert,
 } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   widthPercentageToDP,
   heightPercentageToDP,
 } from "react-native-responsive-screen";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import axios from "axios";
 import OTPModal from "../components/OTPModal";
 import { useNavigation } from "@react-navigation/native";
@@ -39,12 +39,12 @@ const local_data = [
     image: require("../assets/App-Assets/UnionBank-img.png"),
   },
 ];
-const CashInScreen = ({ route }) => {
+const CashOutScreen = ({ route }) => {
   const navigation = useNavigation();
   const { userData } = route.params;
   const [data, setData] = useState([]);
   const [amount, setAmount] = useState("");
-  const [selectedAccNo, setselectedAccNo] = useState(null);
+  const [selectedAccNo, setSelectedAccNo] = useState(null);
   const [fetchedData, setFetchedData] = useState({});
   const [otp, setOtp] = useState("");
   const [isModalVisible, setModalVisible] = useState(false);
@@ -85,8 +85,8 @@ const CashInScreen = ({ route }) => {
     };
     fetchAccountInfo();
   }, [selectedAccNo, data]);
-  const handleSelectBank = (bankName, accNumber) => {
-    setselectedAccNo((prevSelectedNumber) =>
+  const handleSelectBank = (accNumber) => {
+    setSelectedAccNo((prevSelectedNumber) =>
       prevSelectedNumber === accNumber ? null : accNumber
     );
   };
@@ -99,7 +99,7 @@ const CashInScreen = ({ route }) => {
       : require("../assets/App-Assets/SouthMate--Logo.png");
     return (
       <TouchableOpacity
-        onPress={() => handleSelectBank(item.bankName, item.accountNumber)}
+        onPress={() => handleSelectBank(item.accountNumber)}
         style={styles.listContainer}
       >
         <Image
@@ -154,9 +154,9 @@ const CashInScreen = ({ route }) => {
       Alert.alert("Wrong OTP", "Please enter the correct OTP");
     } else {
       axios
-        .post("http://192.168.254.120:3000/cashIn", transactionDetails)
+        .post("http://192.168.254.120:3000/cashOut", transactionDetails)
         .then((response) => {
-          setselectedAccNo(null);
+          setSelectedAccNo(null);
           setAmount("");
           navigation.goBack();
         })
@@ -170,10 +170,7 @@ const CashInScreen = ({ route }) => {
     }
   };
   return (
-    <KeyboardAwareScrollView
-      style={{ flex: 1 }}
-      scrollEnabled={false}
-    >
+    <KeyboardAwareScrollView style={{ flex: 1 }} scrollEnabled={false}>
       <View style={styles.scrollContainer}>
         <View style={styles.container}>
           <View style={styles.innerContainer}>
@@ -181,7 +178,7 @@ const CashInScreen = ({ route }) => {
               source={require("../assets/App-Assets/SouthMate--Logo.png")}
               style={{ width: 100, height: 100, alignSelf: "center" }}
             />
-            <Text style={styles.textStyle}>Choose Bank to Cash In: </Text>
+            <Text style={styles.textStyle}>Choose Bank to Cash Out: </Text>
             {!show && (
               <TouchableOpacity
                 style={styles.redirectButton}
@@ -211,12 +208,12 @@ const CashInScreen = ({ route }) => {
                 </Text>
               </View>
             )}
-            <Text style={styles.textStyle}>Enter the Amount to Cash In: </Text>
+            <Text style={styles.textStyle}>Enter the Amount to Cash Out: </Text>
             <TextInput
               keyboardType="numeric"
               value={amount}
               style={styles.formInput}
-              placeholder="Cash In Amount"
+              placeholder="Cash Out Amount"
               onChangeText={(text) => setAmount(text)}
             />
             <TouchableOpacity
@@ -246,17 +243,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
   },
-  redirectButton: {
-    marginTop: 5,
-    padding: 5,
-    backgroundColor: "white",
-    borderRadius: 5,
-    alignItems: "center",
-  },
-  redirectText: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
   container: {
     backgroundColor: "#968FFF",
     borderRadius: 5,
@@ -284,13 +270,23 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 5,
   },
+  redirectButton: {
+    marginTop: 5,
+    padding: 5,
+    backgroundColor: "white",
+    borderRadius: 5,
+    alignItems: "center",
+  },
+  redirectText: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
   listStyle: {
     backgroundColor: "white",
     borderRadius: 5,
     padding: 10,
     marginVertical: 10,
   },
-
   imageStyle: {
     width: 40,
     height: 40,
@@ -325,4 +321,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-export default CashInScreen;
+export default CashOutScreen;
