@@ -23,7 +23,7 @@ const OTPModal = ({ isVisible, onClose, onSubmit }) => {
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <Text style={styles.textStyle}>
-            Please enter 6-digit OTP sent to your email.
+            Please enter the 6-digit OTP sent to your email.
           </Text>
           <TextInput
             style={styles.input}

@@ -6,7 +6,6 @@ const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const otpGenerator = require("otp-generator");
 const app = express();
-const port = 3000;
 const cors = require("cors");
 app.use(cors());
 const PORT = process.env.PORT;

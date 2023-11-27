@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import {
   widthPercentageToDP,
   heightPercentageToDP,
@@ -13,23 +13,27 @@ const RegisterChoiceScreen = () => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.titleContainer}>
-        <Text style={styles.textStyle}>Welcome to SouthMate!</Text>
-        <Text style={styles.textStyle}>Choose to register as a:</Text>
+        <Image style={styles.listIcon}source={require("../assets/App-Assets/SouthMate--Logo.png")}/>
+        <View style={{gap: 70}}>
+          <Text style={styles.titleStyle}>Get started by creating your SouthMate account</Text>
+          <Text style={styles.textStyle}>By choosing your user type, you will be redirected to our full registration form.</Text>
+        </View>
       </View>
       <TouchableOpacity
         style={styles.choiceButton}
         onPress={handleChoice("Student")}
       >
-        <Text style={[styles.textStyle, { color: "white" }]}>Student</Text>
+        <Text style={[styles.textStyle, { color: "#27235E" }]}>Student</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.choiceButton}
         onPress={handleChoice("Employee")}
       >
-        <Text style={[styles.textStyle, { color: "white" }]}>
+        <Text style={[styles.textStyle, { color: "#27235E" }]}>
           Merchant/Employee
         </Text>
       </TouchableOpacity>
+      
     </View>
   );
 };
@@ -44,7 +48,7 @@ styles = StyleSheet.create({
     margin: 20,
   },
   choiceButton: {
-    backgroundColor: "#27235E",
+    backgroundColor: "#F7EE21",
     padding: 13,
     borderRadius: 5,
     width: widthPercentageToDP("40%"),
@@ -54,7 +58,18 @@ styles = StyleSheet.create({
   textStyle: {
     fontSize: 16,
     fontWeight: "bold",
-    letterSpacing: 2,
+    letterSpacing: 1,
+    textAlign:'center'
   },
+  titleStyle:{
+    fontSize: 25,
+    textAlign:'center',
+    fontWeight:'bold',
+    color:"#27235E"
+  },
+  listIcon:{
+    width: 175,
+    height: 175
+  }
 });
 export default RegisterChoiceScreen;

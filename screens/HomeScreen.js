@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 5,
     padding: 5,
-    maxHeight: 440,
+    maxHeight: 430,
     marginTop: heightPercentageToDP("5%"),
     marginBottom: heightPercentageToDP("15%"),
     marginHorizontal: widthPercentageToDP("5%"),
