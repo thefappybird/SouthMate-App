@@ -18,12 +18,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { widthPercentageToDP, heightPercentageToDP } from 'react-native-responsive-screen';
 import style from "react-native-datepicker/style";
 const LoginScreen = (props) => {
-  const [idNumber, setidNumber] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
   const handleLogin = () => {
     const user={
-      idNumber: idNumber,
+      email: email,
       password: password
     }
     axios.post("http://192.168.254.120:3000/login", user).then(async (response) => {
@@ -61,11 +61,10 @@ const LoginScreen = (props) => {
               color="gray"
             />
             <TextInput
-              value={idNumber}
-              keyboardType="numeric"
-              onChangeText={(text) => setidNumber(text)}
+              value={email}
+              onChangeText={(text) => setEmail(text)}
               style={styles.formInput}
-              placeholder="Enter your ID number"
+              placeholder="Enter your Email"
             />
           </View>
         </View>

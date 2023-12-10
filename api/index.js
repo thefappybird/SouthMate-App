@@ -312,8 +312,8 @@ const secretKey = generateSecretKey();
 
 app.post("/login", async (req, res) => {
   try {
-    const { idNumber, password } = req.body;
-    const user = await User.findOne({ idNumber: Number(idNumber) });
+    const { email, password } = req.body;
+    const user = await User.findOne({ email: email });
     if (!user) {
       return res.status(404).json({ message: "Invalid ID Number" });
     }
