@@ -155,7 +155,7 @@ const CashOutScreen = ({ route }) => {
       Alert.alert("Wrong OTP", "Please enter the correct OTP");
     } else {
       axios
-        .post("http://192.168.254.120:3000/cashOut", transactionDetails)
+        .post(`${IP_ADDRESS}:3000/cashOut`, transactionDetails)
         .then((response) => {
           setSelectedAccNo(null);
           setAmount("");

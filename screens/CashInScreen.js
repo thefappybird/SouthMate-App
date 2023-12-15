@@ -155,7 +155,7 @@ const CashInScreen = ({ route }) => {
       Alert.alert("Wrong OTP", "Please enter the correct OTP");
     } else {
       axios
-        .post("http://192.168.254.120:3000/cashIn", transactionDetails)
+        .post(`${IP_ADDRESS}:3000/cashIn`, transactionDetails)
         .then((response) => {
           setselectedAccNo(null);
           setAmount("");

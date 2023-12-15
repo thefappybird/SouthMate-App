@@ -96,7 +96,7 @@ const BankScreen = ({ route }) => {
       Alert.alert("Wrong OTP", "Please enter the correct OTP")
     }else{
       axios
-      .post(`${IP_ADDRESS}/registerBank`, bank)
+      .post(`${IP_ADDRESS}:3000/registerBank`, bank)
       .then((response) => {
         setAccountNumber("");
         setCount("");
