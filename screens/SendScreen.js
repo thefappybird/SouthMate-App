@@ -29,7 +29,12 @@ const SendScreen = ({ route }) => {
     receiverEmail: "",
     transAmount: 0,
   });
-
+  useEffect(() => {
+    // Check if data is truthy and userEmail is empty
+    if (data && userEmail === "") {
+      setUserEmail(data);
+    }
+  }, [data, userEmail]);
   const toggleModal = () => {
     if (!isModalVisible) {
       if (amount != "" && userEmail != "") {
@@ -91,17 +96,17 @@ const SendScreen = ({ route }) => {
             />
             <Text style={styles.textStyle}>Enter User's Email: </Text>
             <TextInput
-              value={data ? data : userEmail}
+              defaultValue={data ? data : userEmail}
               style={styles.formInput}
               placeholder="Recipient's Email"
               onChangeText={(text) => setUserEmail(text)}
             />
-            <Text style={styles.textStyle}>Enter the Amount to Cash Out: </Text>
+            <Text style={styles.textStyle}>Enter the Amount to Send: </Text>
             <TextInput
               keyboardType="numeric"
               value={amount}
               style={styles.formInput}
-              placeholder="Cash Out Amount"
+              placeholder="Send Amount"
               onChangeText={(text) => setAmount(text)}
             />
             <TouchableOpacity

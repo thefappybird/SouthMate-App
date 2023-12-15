@@ -100,6 +100,7 @@ const BankScreen = ({ route }) => {
       .then((response) => {
         setAccountNumber("");
         setCount("");
+        Alert.alert("Bank Register Success!")
         navigation.goBack();
       })
       .catch((error)=>{
