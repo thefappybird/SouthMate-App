@@ -81,7 +81,6 @@ const BankScreen = ({ route }) => {
       })
       axios.post(`${IP_ADDRESS}:3000/sendOtp`, {email: userData.email}).then(response => {
         setOtp(response.data.otp);
-        console.log(otp);
         setModalVisible(!isModalVisible);
       }).catch(error => {
         console.error('Error sending OTP email from React Native:', error);
