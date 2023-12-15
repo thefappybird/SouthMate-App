@@ -28,7 +28,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import SelectDropdown from "react-native-select-dropdown";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
-
+import {IP_ADDRESS} from '@env';
 const RegisterScreen = (type) => {
   const userType = type.route.params;
   const [step, setStep] = useState(1);
@@ -83,7 +83,7 @@ const RegisterScreen = (type) => {
     };
 
     axios
-      .post("http://192.168.254.120:3000/register", user)
+      .post(`${IP_ADDRESS}:3000/register`, user)
       .then((response) => {
         Alert.alert(
           "Registration successful",

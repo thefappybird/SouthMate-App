@@ -78,7 +78,7 @@ app.post("/register", async (req, res) => {
     newUser.mNumber = Number(mNumber);
     newUser.zipCode = Number(zipCode);
     newUser.idNumber = Number(idNumber);
-    newUser.verificationToken = otpGenerator.generate(20);
+    newUser.verificationToken = otpGenerator.generate(20, {specialChars: false});
     //save the  user to the database
     await newUser.save();
     sendVerificationEmail(newUser.email, newUser.verificationToken, 0);

@@ -9,6 +9,7 @@ import {
   FlatList,
   Alert,
 } from "react-native";
+import {IP_ADDRESS} from '@env';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   widthPercentageToDP,
@@ -59,7 +60,7 @@ const CashInScreen = ({ route }) => {
   useEffect(() => {
     const fetchDataAndUpdateState = () => {
       axios
-        .get("http://192.168.254.120:3000/fetchBanks", { params: userData })
+        .get(`${IP_ADDRESS}:3000/fetchBanks`, { params: userData })
         .then((response) => {
           setData(response.data);
         })
@@ -131,7 +132,7 @@ const CashInScreen = ({ route }) => {
             email = userData.email;
         }
         axios
-          .post("http://192.168.254.120:3000/sendOtp", { email })
+          .post(`${IP_ADDRESS}:3000/sendOtp`, { email })
           .then((response) => {
             setOtp(response.data.otp);
             setModalVisible(!isModalVisible);

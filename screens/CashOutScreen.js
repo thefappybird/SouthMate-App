@@ -13,6 +13,7 @@ import {
   widthPercentageToDP,
   heightPercentageToDP,
 } from "react-native-responsive-screen";
+import {IP_ADDRESS} from '@env';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import axios from "axios";
 import OTPModal from "../components/OTPModal";
@@ -59,7 +60,7 @@ const CashOutScreen = ({ route }) => {
   useEffect(() => {
     const fetchDataAndUpdateState = () => {
       axios
-        .get("http://192.168.254.120:3000/fetchBanks", { params: userData })
+        .get(`${IP_ADDRESS}:3000/fetchBanks`, { params: userData })
         .then((response) => {
           setData(response.data);
         })
@@ -131,7 +132,7 @@ const CashOutScreen = ({ route }) => {
             email = userData.email;
         }
         axios
-          .post("http://192.168.254.120:3000/sendOtp", { email })
+          .post(`${IP_ADDRESS}:3000/sendOtp`, { email })
           .then((response) => {
             setOtp(response.data.otp);
             setModalVisible(!isModalVisible);

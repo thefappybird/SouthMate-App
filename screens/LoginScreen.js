@@ -16,7 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { widthPercentageToDP, heightPercentageToDP } from 'react-native-responsive-screen';
-import style from "react-native-datepicker/style";
+import {IP_ADDRESS} from '@env';
 const LoginScreen = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +26,7 @@ const LoginScreen = (props) => {
       email: email,
       password: password
     }
-    axios.post("http://192.168.254.120:3000/login", user).then(async (response) => {
+    axios.post(`${IP_ADDRESS}:3000/login`, user).then(async (response) => {
       const token = response.data.token;
       const userId = response.data.userId;
       await AsyncStorage.setItem("authToken", token);
@@ -63,6 +63,7 @@ const LoginScreen = (props) => {
             <TextInput
               value={email}
               onChangeText={(text) => setEmail(text)}
+              autoCapitalize="none"
               style={styles.formInput}
               placeholder="Enter your Email"
             />

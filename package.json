@@ -25,9 +25,9 @@
     "mongodb": "^6.1.0",
     "react": "18.2.0",
     "react-native": "0.72.6",
+    "react-native-dotenv": "^3.4.9",
     "react-native-date-picker": "^4.3.3",
     "react-native-datepicker": "^1.7.2",
-    "react-native-dotenv": "^3.4.9",
     "react-native-element-dropdown": "^2.10.0",
     "react-native-gesture-handler": "~2.12.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
@@ -41,7 +41,8 @@
     "react-native-select-dropdown": "^3.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "react-native-dotenv": "^3.4.9"
   },
   "private": true
 }

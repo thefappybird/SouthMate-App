@@ -3,6 +3,7 @@ import {
   ScrollView,
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
+import {IP_ADDRESS} from '@env';
 import {
   View,
   Text,
@@ -78,7 +79,7 @@ const BankScreen = ({ route }) => {
         bankName: local_data[count].label,
         image: url[count],
       })
-      axios.post("http://10.0.2.2:3000/sendOtp", {email: userData.email}).then(response => {
+      axios.post(`${IP_ADDRESS}:3000/sendOtp`, {email: userData.email}).then(response => {
         setOtp(response.data.otp);
         console.log(otp);
         setModalVisible(!isModalVisible);
@@ -95,7 +96,7 @@ const BankScreen = ({ route }) => {
       Alert.alert("Wrong OTP", "Please enter the correct OTP")
     }else{
       axios
-      .post("http://10.0.2.2:3000/registerBank", bank)
+      .post(`${IP_ADDRESS}/registerBank`, bank)
       .then((response) => {
         setAccountNumber("");
         setCount("");

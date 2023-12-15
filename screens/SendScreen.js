@@ -16,6 +16,7 @@ import axios from "axios";
 import OTPModal from "../components/OTPModal";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
+import {IP_ADDRESS} from '@env';
 const SendScreen = ({ route }) => {
   const navigation = useNavigation();
   const { userData, data } = route.params;
@@ -38,7 +39,7 @@ const SendScreen = ({ route }) => {
           transAmount: Number(amount),
         });
         axios
-          .post("http://192.168.254.120:3000/sendOtp", {
+          .post(`${IP_ADDRESS}:3000/sendOtp`, {
             email: userData.email,
           })
           .then((response) => {
@@ -63,7 +64,7 @@ const SendScreen = ({ route }) => {
       Alert.alert("Wrong OTP", "Please enter the correct OTP");
     } else {
       axios
-        .post("http://192.168.254.120:3000/sendMoney", transactionDetails)
+        .post(`${IP_ADDRESS}:3000/sendMoney`, transactionDetails)
         .then((response) => {
           navigation.goBack();
         })

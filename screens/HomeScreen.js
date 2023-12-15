@@ -13,6 +13,7 @@ import {
   widthPercentageToDP,
   heightPercentageToDP,
 } from "react-native-responsive-screen";
+import {IP_ADDRESS} from '@env';
 import { getAuthToken } from "../components/AuthUtils";
 import StickyFooter from "../components/StickyFooter";
 import axios from "axios";
@@ -45,12 +46,12 @@ const HomeScreen = () => {
   
         // Make an API call to fetch user data using the authToken
         const response = await axios.get(
-          `http://192.168.254.120:3000/user/${authToken.userId}`
+          `${IP_ADDRESS}:3000/user/${authToken.userId}`
         );
         // Update the state with the fetched user data
         setUserData(response.data);
         const transactionResponse = await axios.get(
-          "http://192.168.254.120:3000/fetchTransactions",
+          `${IP_ADDRESS}:3000/fetchTransactions`,
           { params: response.data }
         );
         const transData = transactionResponse.data;
@@ -214,7 +215,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#27235E",
-    marginTop: heightPercentageToDP("3%"),
+    marginVertical: heightPercentageToDP("3%"),
     marginHorizontal: widthPercentageToDP("5%"),
     borderRadius: 5,
     padding: "5%",
@@ -227,7 +228,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5,
     maxHeight: 430,
-    marginTop: heightPercentageToDP("5%"),
     marginBottom: heightPercentageToDP("15%"),
     marginHorizontal: widthPercentageToDP("5%"),
   },
