@@ -4,6 +4,7 @@ This is for the Mobile App
 The app is built by React Native, Node and MongoDB as the main languages.
 
 Landing page(no user)
+
 ![image41](https://github.com/thefappybird/SouthMate-App/assets/65710064/2b96368f-5c1b-42c3-a2d0-86f92bf19236)
 ![image50](https://github.com/thefappybird/SouthMate-App/assets/65710064/dbc58dfb-ed6e-4017-b56d-0a8a21ed8b5c)
 
@@ -17,6 +18,7 @@ Landing page(user)
 ![image45](https://github.com/thefappybird/SouthMate-App/assets/65710064/cf20a1af-fc32-4b18-8e07-541364cf37fd)
 
 Transactions (Cash-in/out, Register Bank, Send Money)
+
 ![image2](https://github.com/thefappybird/SouthMate-App/assets/65710064/71d17761-d7a2-4b1a-b88d-9265598b5e58)
 ![image49](https://github.com/thefappybird/SouthMate-App/assets/65710064/b11043b1-9dfd-4a6b-931b-beb3c2945713)
 ![image53](https://github.com/thefappybird/SouthMate-App/assets/65710064/3ce8a527-62ed-42aa-803e-76354e4a318f)
