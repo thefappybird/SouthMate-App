@@ -1,6 +1,7 @@
 Hello, this is my Capstone Project on SouthMate. SouthMate is an online banking service of some sorts that is exclusively used within schools. In this project, I am focusing on creating the website with my school, USPF as the base. The app will include a Website and a mobile app.
 
 This is for the Mobile App. The app has been built using Expo Go and can be installed here: https://expo.dev/artifacts/eas/vXrQwWTyqJhfKqhkZsA9zJ.apk
+
 The app is built by React Native, Node and MongoDB as the main languages.
 
 Landing page(no user)
